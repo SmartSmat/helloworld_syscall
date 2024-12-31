@@ -1,0 +1,24 @@
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <stdio.h>
+#include <errno.h>
+
+#define SYS_CUSTOM 335
+
+int main() {
+    long result;
+    int arg1 = 123;
+    const char *arg2 = "Hello from custom syscall!";
+
+    // Perform the syscall
+    result = syscall(SYS_CUSTOM, arg1, arg2);
+
+    if (result == -1) {
+        perror("syscall failed");
+        return 1;
+    }
+
+    printf("Syscall executed successfully. Result: %ld\n", result);
+
+    return 0;
+}
